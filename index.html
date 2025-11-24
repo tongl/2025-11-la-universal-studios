@@ -1,310 +1,327 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Universal Studios Itinerary</title>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Universal Studios Hollywood: Family Day Planner</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&amp;display=swap" rel="stylesheet"/>
     <style>
         body { font-family: 'Poppins', sans-serif; background-color: #f3f4f6; }
-        .hero-bg { background-color: #1e293b; position: relative; overflow: hidden; }
-        .details-content { transition: all 0.3s ease; max-height: 0; overflow: hidden; opacity: 0; }
-        .details-content.open { max-height: 500px; opacity: 1; }
+        .hero-bg {
+            background-color: #1e293b;
+            position: relative;
+            overflow: hidden;
+        }
+        .lot-badge { font-size: 0.75rem; padding: 2px 8px; border-radius: 9999px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+        .badge-lower { background-color: #ef4444; color: white; }
+        .badge-upper { background-color: #3b82f6; color: white; }
+        .scare-meter { height: 6px; border-radius: 3px; background: #e5e7eb; overflow: hidden; }
+        .scare-fill { height: 100%; transition: width 0.3s ease; }
+        
+        .details-content {
+            transition: max-height 0.4s ease-out, opacity 0.4s ease-out, padding 0.3s ease;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .details-content.open { opacity: 1; }
     </style>
 </head>
-<body class="text-slate-800 pb-20">
-
-    <!-- Hero -->
-    <div class="hero-bg text-white shadow-xl relative h-64 flex flex-col justify-center items-center text-center px-4">
-        <img src="data:image/svg+xml;base64,IDxzdmcgd2lkdGg9IjEwMjQiIGhlaWdodD0iMTAyNCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+IDxkZWZzPiA8bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSItMTAwJSIgeTE9IjAiIHgyPSIwIiB5Mj0iMCI+IDxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2IwYjBiMCIvPiA8c3RvcCBvZmZzZXQ9Ii41IiBzdG9wLWNvbG9yPSIjZjBmMGYwIi8+IDxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2IwYjBiMCIvPiA8YW5pbWF0ZVRyYW5zZm9ybSBpZD0iYSIgYXR0cmlidXRlTmFtZT0iZ3JhZGllbnRUcmFuc2Zvcm0iIHR5cGU9InRyYW5zbGF0ZSIgZnJvbT0iMCIgdG89IjIiIGR1cj0iMXMiIGJlZ2luPSIwcyIvPiA8YW5pbWF0ZVRyYW5zZm9ybSBpZD0iYiIgYXR0cmlidXRlTmFtZT0iZ3JhZGllbnRUcmFuc2Zvcm0iIHR5cGU9InRyYW5zbGF0ZSIgZnJvbT0iMCIgdG89IjIiIGR1cj0iMS41cyIgYmVnaW49ImEuZW5kIi8+IDxhbmltYXRlVHJhbnNmb3JtIGF0dHJpYnV0ZU5hbWU9ImdyYWRpZW50VHJhbnNmb3JtIiB0eXBlPSJ0cmFuc2xhdGUiIGZyb209IjAiIHRvPSIyIiBkdXI9IjJzIiBiZWdpbj0iYi5lbmQiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIi8+IDwvbGluZWFyR3JhZGllbnQ+IDwvZGVmcz4gPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9InVybCgjZykiLz4gPC9zdmc+" class="absolute inset-0 w-full h-full object-cover opacity-30" alt="Background">
-        <div class="relative z-10">
-            <h1 class="text-3xl md:text-5xl font-bold mb-2">Hollywood Adventure</h1>
-            <p class="text-xl opacity-90">Nov 25, 2025 • Universal Express</p>
-        </div>
+<body class="text-slate-800">
+<!-- Hero Section -->
+<div class="hero-bg text-white shadow-xl">
+    <div class="absolute inset-0 opacity-40">
+        <!-- Background Image: Local Asset -->
+        <img alt="Universal Studios Globe" class="w-full h-full object-cover" src="assets/header.jpg"/>
     </div>
-
-    <!-- Timeline Container -->
-    <div class="container mx-auto px-4 -mt-8 relative z-20 space-y-4">
-        
-        <!-- Intro Card -->
-        <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col md:flex-row gap-4 items-center justify-between">
-            <div class="flex items-center gap-4">
-                <div class="bg-indigo-100 p-3 rounded-full text-indigo-600">
-                    <span class="material-symbols-outlined text-2xl">child_care</span>
-                </div>
+    <div class="relative z-10 container mx-auto px-4 py-12 lg:py-20 text-center">
+        <h1 class="text-3xl md:text-5xl font-bold mb-4 drop-shadow-md">Hollywood Adventure</h1>
+        <p class="text-xl md:text-2xl font-light mb-6">Family Itinerary • Nov 25, 2025</p>
+        <div class="bg-white/10 backdrop-blur-md inline-block rounded-xl p-4 border border-white/20">
+            <div class="flex items-center gap-6 text-left">
                 <div>
-                    <h3 class="font-bold">Child Profile</h3>
-                    <p class="text-sm text-slate-500">Age: 5 • Height: 42-44"</p>
+                    <div class="text-xs opacity-75 uppercase tracking-wider">Park Hours</div>
+                    <div class="font-bold text-lg">9:00 AM - 8:00 PM</div>
                 </div>
-            </div>
-            <div class="bg-yellow-50 px-4 py-2 rounded-lg border border-yellow-100 text-yellow-800 text-sm font-semibold">
-                Universal Express Pass Active
-            </div>
-        </div>
-
-        <!-- Timeline Items (Generated) -->
-        
-        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-            <div class="p-4 flex gap-4 cursor-pointer hover:bg-slate-50 transition" onclick="this.parentElement.querySelector('.details-content').classList.toggle('open')">
-                <img src="https://placehold.co/100x100/f87171/white?text=Super%20Nintendo%20" class="w-16 h-16 rounded-lg object-cover bg-slate-100 shrink-0" alt="Super Nintendo World">
-                <div class="flex-1 min-w-0">
-                    <div class="flex justify-between items-start">
-                        <h3 class="font-bold text-slate-800 truncate pr-2">Super Nintendo World</h3>
-                        <span class="material-symbols-outlined text-slate-400">expand_more</span>
-                    </div>
-                    <div class="flex items-center gap-2 mt-1">
-                        <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-red-100 text-red-700">Lower Lot</span>
-                        <span class="text-xs text-slate-500 flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[14px]">schedule</span> 9:15 AM
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="details-content bg-slate-50 border-t border-slate-100">
-                <div class="p-4 text-sm text-slate-600">
-                    <p>Immerse yourself in the Mushroom Kingdom. Punch blocks, meet Mario & Luigi!</p>
+                <div class="h-8 w-px bg-white/30"></div>
+                <div>
+                    <div class="text-xs opacity-75 uppercase tracking-wider">Ticket Type</div>
+                    <div class="font-bold text-lg text-yellow-300">Universal Express</div>
                 </div>
             </div>
         </div>
-        
-        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-            <div class="p-4 flex gap-4 cursor-pointer hover:bg-slate-50 transition" onclick="this.parentElement.querySelector('.details-content').classList.toggle('open')">
-                <img src="https://placehold.co/100x100/ef4444/white?text=Mario%20Kart%3A%20Bow" class="w-16 h-16 rounded-lg object-cover bg-slate-100 shrink-0" alt="Mario Kart: Bowser's Challenge">
-                <div class="flex-1 min-w-0">
-                    <div class="flex justify-between items-start">
-                        <h3 class="font-bold text-slate-800 truncate pr-2">Mario Kart: Bowser's Challenge</h3>
-                        <span class="material-symbols-outlined text-slate-400">expand_more</span>
-                    </div>
-                    <div class="flex items-center gap-2 mt-1">
-                        <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-red-100 text-red-700">Lower Lot</span>
-                        <span class="text-xs text-slate-500 flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[14px]">schedule</span> 9:45 AM
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="details-content bg-slate-50 border-t border-slate-100">
-                <div class="p-4 text-sm text-slate-600">
-                    <p>Battle Team Bowser in this augmented reality ride.</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-            <div class="p-4 flex gap-4 cursor-pointer hover:bg-slate-50 transition" onclick="this.parentElement.querySelector('.details-content').classList.toggle('open')">
-                <img src="https://placehold.co/100x100/22c55e/white?text=DinoPlay%20Area" class="w-16 h-16 rounded-lg object-cover bg-slate-100 shrink-0" alt="DinoPlay Area">
-                <div class="flex-1 min-w-0">
-                    <div class="flex justify-between items-start">
-                        <h3 class="font-bold text-slate-800 truncate pr-2">DinoPlay Area</h3>
-                        <span class="material-symbols-outlined text-slate-400">expand_more</span>
-                    </div>
-                    <div class="flex items-center gap-2 mt-1">
-                        <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-red-100 text-red-700">Lower Lot</span>
-                        <span class="text-xs text-slate-500 flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[14px]">schedule</span> 10:30 AM
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="details-content bg-slate-50 border-t border-slate-100">
-                <div class="p-4 text-sm text-slate-600">
-                    <p>A massive dinosaur-themed playground.</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-            <div class="p-4 flex gap-4 cursor-pointer hover:bg-slate-50 transition" onclick="this.parentElement.querySelector('.details-content').classList.toggle('open')">
-                <img src="https://placehold.co/100x100/15803d/white?text=Jurassic%20World%20" class="w-16 h-16 rounded-lg object-cover bg-slate-100 shrink-0" alt="Jurassic World - The Ride">
-                <div class="flex-1 min-w-0">
-                    <div class="flex justify-between items-start">
-                        <h3 class="font-bold text-slate-800 truncate pr-2">Jurassic World - The Ride</h3>
-                        <span class="material-symbols-outlined text-slate-400">expand_more</span>
-                    </div>
-                    <div class="flex items-center gap-2 mt-1">
-                        <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-red-100 text-red-700">Lower Lot</span>
-                        <span class="text-xs text-slate-500 flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[14px]">schedule</span> 11:00 AM
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="details-content bg-slate-50 border-t border-slate-100">
-                <div class="p-4 text-sm text-slate-600">
-                    <p>A boat ride through a dinosaur habitat that goes wrong.</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-            <div class="p-4 flex gap-4 cursor-pointer hover:bg-slate-50 transition" onclick="this.parentElement.querySelector('.details-content').classList.toggle('open')">
-                <img src="https://placehold.co/100x100/64748b/white?text=The%20Starway%20(As" class="w-16 h-16 rounded-lg object-cover bg-slate-100 shrink-0" alt="The Starway (Ascend)">
-                <div class="flex-1 min-w-0">
-                    <div class="flex justify-between items-start">
-                        <h3 class="font-bold text-slate-800 truncate pr-2">The Starway (Ascend)</h3>
-                        <span class="material-symbols-outlined text-slate-400">expand_more</span>
-                    </div>
-                    <div class="flex items-center gap-2 mt-1">
-                        <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">Connector Lot</span>
-                        <span class="text-xs text-slate-500 flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[14px]">schedule</span> 11:30 AM
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="details-content bg-slate-50 border-t border-slate-100">
-                <div class="p-4 text-sm text-slate-600">
-                    <p>Take the long escalators up to the Upper Lot.</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-            <div class="p-4 flex gap-4 cursor-pointer hover:bg-slate-50 transition" onclick="this.parentElement.querySelector('.details-content').classList.toggle('open')">
-                <img src="https://placehold.co/100x100/3b82f6/white?text=World-Famous%20St" class="w-16 h-16 rounded-lg object-cover bg-slate-100 shrink-0" alt="World-Famous Studio Tour">
-                <div class="flex-1 min-w-0">
-                    <div class="flex justify-between items-start">
-                        <h3 class="font-bold text-slate-800 truncate pr-2">World-Famous Studio Tour</h3>
-                        <span class="material-symbols-outlined text-slate-400">expand_more</span>
-                    </div>
-                    <div class="flex items-center gap-2 mt-1">
-                        <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">Upper Lot</span>
-                        <span class="text-xs text-slate-500 flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[14px]">schedule</span> 12:00 PM
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="details-content bg-slate-50 border-t border-slate-100">
-                <div class="p-4 text-sm text-slate-600">
-                    <p>Tram tour through real movie sets.</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-            <div class="p-4 flex gap-4 cursor-pointer hover:bg-slate-50 transition" onclick="this.parentElement.querySelector('.details-content').classList.toggle('open')">
-                <img src="https://placehold.co/100x100/a855f7/white?text=Lunch%3A%20Three%20Br" class="w-16 h-16 rounded-lg object-cover bg-slate-100 shrink-0" alt="Lunch: Three Broomsticks">
-                <div class="flex-1 min-w-0">
-                    <div class="flex justify-between items-start">
-                        <h3 class="font-bold text-slate-800 truncate pr-2">Lunch: Three Broomsticks</h3>
-                        <span class="material-symbols-outlined text-slate-400">expand_more</span>
-                    </div>
-                    <div class="flex items-center gap-2 mt-1">
-                        <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">Upper Lot</span>
-                        <span class="text-xs text-slate-500 flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[14px]">schedule</span> 1:15 PM
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="details-content bg-slate-50 border-t border-slate-100">
-                <div class="p-4 text-sm text-slate-600">
-                    <p>Rustic tavern fare: Fish & Chips and Butterbeer.</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-            <div class="p-4 flex gap-4 cursor-pointer hover:bg-slate-50 transition" onclick="this.parentElement.querySelector('.details-content').classList.toggle('open')">
-                <img src="https://placehold.co/100x100/3b82f6/white?text=Wizarding%20World" class="w-16 h-16 rounded-lg object-cover bg-slate-100 shrink-0" alt="Wizarding World: Hippogriff">
-                <div class="flex-1 min-w-0">
-                    <div class="flex justify-between items-start">
-                        <h3 class="font-bold text-slate-800 truncate pr-2">Wizarding World: Hippogriff</h3>
-                        <span class="material-symbols-outlined text-slate-400">expand_more</span>
-                    </div>
-                    <div class="flex items-center gap-2 mt-1">
-                        <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">Upper Lot</span>
-                        <span class="text-xs text-slate-500 flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[14px]">schedule</span> 2:30 PM
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="details-content bg-slate-50 border-t border-slate-100">
-                <div class="p-4 text-sm text-slate-600">
-                    <p>Family-friendly coaster.</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-            <div class="p-4 flex gap-4 cursor-pointer hover:bg-slate-50 transition" onclick="this.parentElement.querySelector('.details-content').classList.toggle('open')">
-                <img src="https://placehold.co/100x100/eab308/white?text=Secret%20Life%20of%20" class="w-16 h-16 rounded-lg object-cover bg-slate-100 shrink-0" alt="Secret Life of Pets">
-                <div class="flex-1 min-w-0">
-                    <div class="flex justify-between items-start">
-                        <h3 class="font-bold text-slate-800 truncate pr-2">Secret Life of Pets</h3>
-                        <span class="material-symbols-outlined text-slate-400">expand_more</span>
-                    </div>
-                    <div class="flex items-center gap-2 mt-1">
-                        <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">Upper Lot</span>
-                        <span class="text-xs text-slate-500 flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[14px]">schedule</span> 3:30 PM
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="details-content bg-slate-50 border-t border-slate-100">
-                <div class="p-4 text-sm text-slate-600">
-                    <p>Transform into a puppy and travel through NYC.</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-            <div class="p-4 flex gap-4 cursor-pointer hover:bg-slate-50 transition" onclick="this.parentElement.querySelector('.details-content').classList.toggle('open')">
-                <img src="https://placehold.co/100x100/facc15/black?text=Super%20Silly%20Fun" class="w-16 h-16 rounded-lg object-cover bg-slate-100 shrink-0" alt="Super Silly Fun Land">
-                <div class="flex-1 min-w-0">
-                    <div class="flex justify-between items-start">
-                        <h3 class="font-bold text-slate-800 truncate pr-2">Super Silly Fun Land</h3>
-                        <span class="material-symbols-outlined text-slate-400">expand_more</span>
-                    </div>
-                    <div class="flex items-center gap-2 mt-1">
-                        <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">Upper Lot</span>
-                        <span class="text-xs text-slate-500 flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[14px]">schedule</span> 4:15 PM
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="details-content bg-slate-50 border-t border-slate-100">
-                <div class="p-4 text-sm text-slate-600">
-                    <p>Minion-themed carnival area.</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-            <div class="p-4 flex gap-4 cursor-pointer hover:bg-slate-50 transition" onclick="this.parentElement.querySelector('.details-content').classList.toggle('open')">
-                <img src="https://placehold.co/100x100/0ea5e9/white?text=WaterWorld" class="w-16 h-16 rounded-lg object-cover bg-slate-100 shrink-0" alt="WaterWorld">
-                <div class="flex-1 min-w-0">
-                    <div class="flex justify-between items-start">
-                        <h3 class="font-bold text-slate-800 truncate pr-2">WaterWorld</h3>
-                        <span class="material-symbols-outlined text-slate-400">expand_more</span>
-                    </div>
-                    <div class="flex items-center gap-2 mt-1">
-                        <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">Upper Lot</span>
-                        <span class="text-xs text-slate-500 flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[14px]">schedule</span> 5:30 PM
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="details-content bg-slate-50 border-t border-slate-100">
-                <div class="p-4 text-sm text-slate-600">
-                    <p>World-class stunt show with jet skis.</p>
-                </div>
-            </div>
-        </div>
-        
-
-        <!-- Footer -->
-        <div class="text-center text-xs text-slate-400 mt-8">
-            <p>Generated by AI • Images are placeholders for GitHub compatibility</p>
-        </div>
-
     </div>
+</div>
+
+<!-- Controls & Info -->
+<div class="container mx-auto px-4 -mt-8 relative z-20">
+    <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="flex items-center gap-4 w-full md:w-auto">
+            <div class="bg-indigo-100 p-3 rounded-full text-indigo-600">
+                <span class="material-symbols-outlined text-2xl">child_care</span>
+            </div>
+            <div>
+                <h3 class="font-bold text-slate-800">Child Profile</h3>
+                <p class="text-sm text-slate-500">Age: 5 • Est. Height: 42-44"</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-3 bg-slate-50 px-4 py-2 rounded-lg border border-slate-200 w-full md:w-auto">
+            <span class="material-symbols-outlined text-orange-500">height</span>
+            <div class="flex-1">
+                <p class="text-xs font-bold text-slate-700">Strict Height Check</p>
+                <p class="text-[10px] text-slate-500">Highlight items &gt;40"</p>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer">
+                <input class="sr-only peer" id="heightToggle" type="checkbox"/>
+                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content Grid -->
+<div class="container mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <div class="lg:col-span-8 space-y-8">
+        <!-- Morning -->
+        <section>
+            <div class="flex items-center gap-3 mb-4">
+                <div class="bg-yellow-100 text-yellow-700 p-2 rounded-lg"><span class="material-symbols-outlined">wb_sunny</span></div>
+                <h2 class="text-2xl font-bold text-slate-800">Morning: The Lower Lot Strategy</h2>
+            </div>
+            <p class="text-sm text-slate-500 mb-6 bg-blue-50 p-3 rounded-lg border border-blue-100">
+                <span class="font-bold text-blue-600">Pro Tip:</span> Head straight to the Lower Lot upon entry. The "Starway" escalators take ~20 mins round trip!
+            </p>
+            <div class="space-y-4" id="morning-timeline"></div>
+        </section>
+        <!-- Mid-Day -->
+        <section>
+            <div class="flex items-center gap-3 mb-4 mt-10">
+                <div class="bg-orange-100 text-orange-700 p-2 rounded-lg"><span class="material-symbols-outlined">lunch_dining</span></div>
+                <h2 class="text-2xl font-bold text-slate-800">Mid-Day: Studio Tour & Lunch</h2>
+            </div>
+            <div class="space-y-4" id="midday-timeline"></div>
+        </section>
+        <!-- Afternoon -->
+        <section>
+            <div class="flex items-center gap-3 mb-4 mt-10">
+                <div class="bg-purple-100 text-purple-700 p-2 rounded-lg"><span class="material-symbols-outlined">auto_awesome</span></div>
+                <h2 class="text-2xl font-bold text-slate-800">Afternoon: Wizarding World & Minions</h2>
+            </div>
+            <div class="space-y-4" id="afternoon-timeline"></div>
+        </section>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="lg:col-span-4 space-y-6">
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden sticky top-6">
+            <div class="p-4 bg-slate-800 text-white flex justify-between items-center">
+                <h3 class="font-bold">Park Layout</h3>
+                <span class="text-xs bg-white/20 px-2 py-1 rounded">2 Main Levels</span>
+            </div>
+            <div class="relative h-64 bg-slate-100">
+                <div class="absolute inset-0 flex flex-col p-4 gap-2">
+                    <div class="flex-1 bg-blue-50 border-2 border-blue-200 rounded-lg p-2 relative group hover:bg-blue-100 transition cursor-help">
+                        <span class="absolute top-2 left-2 font-bold text-blue-800 text-xs uppercase">Upper Lot</span>
+                        <div class="absolute bottom-2 right-2 text-[10px] text-blue-600">Entry, Potter, Minions</div>
+                        <span class="material-symbols-outlined absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-blue-300 text-4xl">castle</span>
+                    </div>
+                    <div class="h-8 flex items-center justify-center">
+                        <div class="w-1 bg-slate-300 h-full mx-1"></div>
+                        <span class="text-[10px] text-slate-400 font-mono">STARWAY</span>
+                        <div class="w-1 bg-slate-300 h-full mx-1"></div>
+                    </div>
+                    <div class="flex-1 bg-red-50 border-2 border-red-200 rounded-lg p-2 relative group hover:bg-red-100 transition cursor-help">
+                        <span class="absolute top-2 left-2 font-bold text-red-800 text-xs uppercase">Lower Lot</span>
+                        <div class="absolute bottom-2 right-2 text-[10px] text-red-600">Nintendo, Jurassic</div>
+                        <span class="material-symbols-outlined absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-red-300 text-4xl">videogame_asset</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+            <h3 class="font-bold text-slate-800 mb-4">Dining Picks</h3>
+            <div class="space-y-4">
+                <div class="flex gap-3">
+                    <img alt="Toadstool Cafe" class="w-16 h-16 rounded-lg object-cover bg-slate-200" src="assets/toadstool_cafe.jpg"/>
+                    <div>
+                        <h4 class="font-bold text-sm">Toadstool Cafe</h4>
+                        <span class="text-[10px] bg-red-100 text-red-600 px-1.5 py-0.5 rounded border border-red-200">Requires Reservation</span>
+                    </div>
+                </div>
+                <div class="flex gap-3">
+                    <img alt="Three Broomsticks" class="w-16 h-16 rounded-lg object-cover bg-slate-200" src="assets/broomsticks_interior.jpg"/>
+                    <div>
+                        <h4 class="font-bold text-sm">Three Broomsticks</h4>
+                        <span class="text-[10px] bg-green-100 text-green-600 px-1.5 py-0.5 rounded border border-green-200">Great for Families</span>
+                    </div>
+                </div>
+                <div class="flex gap-3">
+                    <img alt="Minion Cafe" class="w-16 h-16 rounded-lg object-cover bg-slate-200" src="assets/minion_cafe.jpg"/>
+                    <div>
+                        <h4 class="font-bold text-sm">Minion Cafe</h4>
+                        <span class="text-[10px] bg-yellow-100 text-yellow-700 px-1.5 py-0.5 rounded border border-yellow-200">Kid Favorites</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<template id="item-template">
+    <div class="timeline-item bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden group hover:border-indigo-200 transition-colors">
+        <div class="p-4 flex gap-4 cursor-pointer item-header">
+            <div class="w-16 h-16 shrink-0 relative">
+                <img alt="Ride" class="w-full h-full object-cover rounded-lg bg-slate-200 item-image" src=""/>
+                <div class="absolute -bottom-2 -right-2 bg-white rounded-full p-1 shadow-sm">
+                    <div class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white item-index-badge">1</div>
+                </div>
+            </div>
+            <div class="flex-1 min-w-0">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="font-bold text-lg text-slate-800 truncate item-title">Title</h3>
+                        <div class="flex items-center gap-2 mt-1">
+                            <span class="lot-badge item-lot-badge">Upper Lot</span>
+                            <span class="text-xs text-slate-500 flex items-center gap-1 item-time"><span class="material-symbols-outlined text-[14px]">schedule</span> <span class="item-duration">Duration</span></span>
+                        </div>
+                    </div>
+                    <span class="material-symbols-outlined text-slate-300 group-hover:text-indigo-500 transition-transform duration-300 arrow-icon">expand_more</span>
+                </div>
+                <div class="flex gap-2 mt-2 item-attributes"></div>
+            </div>
+        </div>
+        <div class="details-content bg-slate-50 border-t border-slate-100">
+            <div class="p-4">
+                <p class="text-sm text-slate-600 mb-4 item-desc">Description goes here.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-white p-3 rounded-lg border border-slate-200">
+                        <h4 class="text-xs font-bold uppercase text-slate-400 mb-2">Parents Guide</h4>
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-xs font-semibold text-slate-600 w-24">Height Req:</span>
+                            <span class="text-xs font-mono bg-slate-100 px-2 py-1 rounded item-height">40"</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-semibold text-slate-600 w-24">Scare Factor:</span>
+                            <div class="flex-1">
+                                <div class="scare-meter"><div class="scare-fill bg-green-500 w-0 item-scare-fill"></div></div>
+                                <p class="text-[10px] text-slate-400 mt-1 item-scare-text">None</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-100">
+                        <h4 class="text-xs font-bold uppercase text-indigo-400 mb-2">Express Tip</h4>
+                        <p class="text-xs text-indigo-800 item-tip">Tip text.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    const itineraryData = {
+        morning: [
+            { id: 1, title: "Super Nintendo World", time: "9:15 AM", duration: "Exploration", lot: "Lower", image: "assets/nintendo_entry.jpg", desc: "Immerse yourself in the Mushroom Kingdom. Punch blocks, meet Mario & Luigi!", height: "None", scare: 0, scareText: "Pure Fun", tip: "Use Express Pass at Mario Kart entrance if land is busy.", tags: ["Must Do"] },
+            { id: 2, title: "Mario Kart: Bowser's Challenge", time: "9:45 AM", duration: "Ride", lot: "Lower", image: "assets/mario_kart.jpg", desc: "Battle Team Bowser in this augmented reality ride.", height: "40\"", scare: 2, scareText: "Dark & Loud", tip: "Express Pass covers this! Queue is amazing but long.", tags: ["Express Included"] },
+            { id: 3, title: "DinoPlay Area", time: "10:30 AM", duration: "Play Break", lot: "Lower", image: "assets/dinoplay.jpg", desc: "A massive dinosaur-themed playground.", height: "None", scare: 0, scareText: "Playground", tip: "Located right near Jurassic World.", tags: ["Relaxation"] },
+            { id: 4, title: "Jurassic World - The Ride", time: "11:00 AM", duration: "Ride (Optional)", lot: "Lower", image: "assets/jurassic.jpg", desc: "A boat ride with an 84-foot drop and realistic T-Rex.", height: "42\"", scare: 8, scareText: "Scary Drop", tip: "Check height (42 min). Skip if she dislikes drops.", tags: ["Thrilling"] }
+        ],
+        midday: [
+            { id: 5, title: "The Starway (Ascend)", time: "11:30 AM", duration: "Travel", lot: "Connector", image: "assets/starway.jpg", desc: "Take the long escalators up to the Upper Lot.", height: "None", scare: 0, scareText: "Scenic", tip: "10-15 min journey.", tags: ["Transition"] },
+            { id: 6, title: "World-Famous Studio Tour", time: "12:00 PM", duration: "60 Mins", lot: "Upper", image: "assets/studio_tour.jpg", desc: "Tram tour through real movie sets.", height: "None", scare: 4, scareText: "Loud Moments", tip: "Sit in the middle of the tram bench.", tags: ["Classic"] },
+            { id: 7, title: "Lunch: Three Broomsticks", time: "1:15 PM", duration: "Dining", lot: "Upper", image: "assets/broomsticks_food.jpg", desc: "Rustic tavern fare: Fish & Chips and Butterbeer.", height: "None", scare: 0, scareText: "Yummy", tip: "Mobile Order via App.", tags: ["Food"] }
+        ],
+        afternoon: [
+            { id: 8, title: "Wizarding World: Hippogriff", time: "2:30 PM", duration: "Ride", lot: "Upper", image: "assets/hippogriff.jpg", desc: "Family-friendly coaster.", height: "39\"", scare: 3, scareText: "Mild Coaster", tip: "Perfect first coaster.", tags: ["Fun"] },
+            { id: 9, title: "Secret Life of Pets", time: "3:30 PM", duration: "Ride", lot: "Upper", image: "assets/pets_ride.jpg", desc: "Transform into a puppy and travel through NYC.", height: "34\"", scare: 0, scareText: "None", tip: "Absolute MUST DO.", tags: ["Must Do"] },
+            { id: 10, title: "Super Silly Fun Land", time: "4:15 PM", duration: "Play/Ride", lot: "Upper", image: "assets/fun_land.jpg", desc: "Minion-themed carnival area.", height: "None", scare: 0, scareText: "Playground", tip: "Great spot to burn energy.", tags: ["Kids"] },
+            { id: 11, title: "WaterWorld", time: "5:30 PM", duration: "Show", lot: "Upper", image: "assets/waterworld.jpg", desc: "World-class stunt show.", height: "None", scare: 5, scareText: "Loud Explosions", tip: "Arrive 20 mins early.", tags: ["Show"] }
+        ]
+    };
+
+    function renderTimeline(sectionId, items) {
+        const container = document.getElementById(sectionId);
+        const template = document.getElementById('item-template');
+
+        items.forEach(item => {
+            const clone = template.content.cloneNode(true);
+            const el = clone.querySelector('.timeline-item');
+            
+            clone.querySelector('.item-title').textContent = item.title;
+            clone.querySelector('.item-duration').textContent = item.duration;
+            clone.querySelector('.item-image').src = item.image;
+            clone.querySelector('.item-desc').textContent = item.desc;
+            clone.querySelector('.item-height').textContent = item.height;
+            clone.querySelector('.item-tip').textContent = item.tip;
+            clone.querySelector('.item-scare-text').textContent = item.scareText;
+            clone.querySelector('.item-index-badge').textContent = item.id;
+
+            const lotBadge = clone.querySelector('.item-lot-badge');
+            lotBadge.textContent = item.lot + (item.lot === 'Connector' ? '' : ' Lot');
+            if (item.lot === 'Lower') lotBadge.classList.add('badge-lower');
+            else if (item.lot === 'Upper') lotBadge.classList.add('badge-upper');
+            else lotBadge.classList.add('bg-slate-500', 'text-white');
+
+            const tagContainer = clone.querySelector('.item-attributes');
+            item.tags.forEach(tag => {
+                const span = document.createElement('span');
+                span.className = "text-[10px] px-2 py-1 rounded bg-slate-100 text-slate-600 font-semibold border border-slate-200";
+                span.textContent = tag;
+                tagContainer.appendChild(span);
+            });
+
+            const scareFill = clone.querySelector('.item-scare-fill');
+            scareFill.style.width = `${item.scare * 10}%`;
+            if (item.scare > 6) scareFill.classList.replace('bg-green-500', 'bg-red-500');
+            else if (item.scare > 3) scareFill.classList.replace('bg-green-500', 'bg-yellow-500');
+
+            if (item.height.includes('40') || item.height.includes('42') || item.height.includes('48')) {
+                el.dataset.heightRestricted = "true";
+            }
+
+            const header = clone.querySelector('.item-header');
+            const content = clone.querySelector('.details-content');
+            const arrow = clone.querySelector('.arrow-icon');
+
+            header.addEventListener('click', () => {
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                    content.classList.remove('open');
+                    arrow.style.transform = 'rotate(0deg)';
+                    header.classList.remove('bg-indigo-50');
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    content.classList.add('open');
+                    arrow.style.transform = 'rotate(180deg)';
+                    header.classList.add('bg-indigo-50');
+                }
+            });
+
+            container.appendChild(clone);
+        });
+    }
+
+    renderTimeline('morning-timeline', itineraryData.morning);
+    renderTimeline('midday-timeline', itineraryData.midday);
+    renderTimeline('afternoon-timeline', itineraryData.afternoon);
+
+    document.getElementById('heightToggle').addEventListener('change', (e) => {
+        const isChecked = e.target.checked;
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            if (item.dataset.heightRestricted === "true") {
+                if (isChecked) {
+                    item.classList.add('ring-2', 'ring-orange-400', 'bg-orange-50');
+                    item.querySelector('.item-height').classList.add('bg-orange-200', 'text-orange-800');
+                } else {
+                    item.classList.remove('ring-2', 'ring-orange-400', 'bg-orange-50');
+                    item.querySelector('.item-height').classList.remove('bg-orange-200', 'text-orange-800');
+                }
+            }
+        });
+    });
+</script>
 </body>
 </html>
