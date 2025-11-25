@@ -63,6 +63,36 @@
         .details-content.open {
             opacity: 1;
         }
+
+        /* Check Button Styles */
+        .check-btn {
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+            border-radius: 8px;
+            /* Rounded rectangle */
+        }
+
+        .check-btn:hover {
+            transform: scale(1.05);
+            background-color: #f0fdf4;
+        }
+
+        .check-btn.active {
+            background-color: #22c55e;
+            color: white;
+            border-color: #22c55e;
+        }
+
+        /* Done State Styles */
+        .timeline-item.is-done {
+            opacity: 0.6;
+            filter: grayscale(0.8);
+        }
+
+        .timeline-item.is-done .check-btn {
+            opacity: 1;
+            /* Keep button visible */
+        }
     </style>
 </head>
 
@@ -380,6 +410,28 @@
             ]
         };
 
+        // State Management
+        const doneState = JSON.parse(localStorage.getItem('ush_done_state')) || [];
+
+        function toggleDone(id, btn) {
+            const item = btn.closest('.timeline-item');
+            const index = doneState.indexOf(id);
+
+            if (index === -1) {
+                doneState.push(id);
+                item.classList.add('is-done');
+                btn.classList.add('active');
+                btn.innerHTML = '<span class="material-symbols-outlined text-lg">check</span>';
+            } else {
+                doneState.splice(index, 1);
+                item.classList.remove('is-done');
+                btn.classList.remove('active');
+                btn.innerHTML = '';
+            }
+
+            localStorage.setItem('ush_done_state', JSON.stringify(doneState));
+        }
+
         function renderTimeline(sectionId, items) {
             const container = document.getElementById(sectionId);
             const template = document.getElementById('item-template');
@@ -387,20 +439,47 @@
             items.forEach(item => {
                 const clone = template.content.cloneNode(true);
                 const el = clone.querySelector('.timeline-item');
+                const header = clone.querySelector('.item-header');
+                const isDone = doneState.includes(item.id);
+
+                if (isDone) {
+                    el.classList.add('is-done');
+                }
+
+                // Create and insert Check Button at the start of header
+                const checkBtn = document.createElement('button');
+                checkBtn.className = `check-btn w-8 h-8 rounded-lg border-2 border-slate-300 flex items-center justify-center text-slate-400 self-center mr-1 ${isDone ? 'active' : ''}`;
+                checkBtn.innerHTML = isDone ? '<span class="material-symbols-outlined text-lg">check</span>' : '';
+                checkBtn.onclick = (e) => {
+                    e.stopPropagation(); // Prevent accordion toggle
+                    toggleDone(item.id, checkBtn);
+                };
+                header.insertBefore(checkBtn, header.firstChild);
 
                 // Title with Link and Rating
                 const titleEl = clone.querySelector('.item-title');
+
+                // Reset title element classes (remove flex container logic from previous step)
+                titleEl.classList.remove('flex', 'items-center', 'justify-between', 'gap-2');
+                titleEl.classList.add('truncate'); // Restore truncate
+
                 titleEl.innerHTML = `
-                <a href="${item.mapsUrl}" target="_blank" class="hover:text-indigo-600 hover:underline decoration-2 underline-offset-2 transition-colors flex items-center gap-2">
-                    ${item.title}
-                </a>
-                <div class="flex items-center gap-1 mt-1">
+                    <a href="${item.mapsUrl}" target="_blank" class="hover:text-indigo-600 hover:underline decoration-2 underline-offset-2 transition-colors flex items-center gap-2 truncate">
+                        ${item.title}
+                    </a>
+                `;
+
+                // Add rating below title
+                const ratingDiv = document.createElement('div');
+                ratingDiv.className = 'flex items-center gap-1 mt-1';
+                ratingDiv.innerHTML = `
                     <div class="flex items-center gap-0.5 text-xs font-bold text-amber-500 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-100">
                         <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
                         <span>${item.rating}</span>
                     </div>
-                </div>
-            `;
+                `;
+                titleEl.parentNode.insertBefore(ratingDiv, titleEl.nextSibling);
+
 
                 clone.querySelector('.item-duration').textContent = item.duration;
                 clone.querySelector('.item-image').src = item.image;
@@ -433,7 +512,6 @@
                     el.dataset.heightRestricted = "true";
                 }
 
-                const header = clone.querySelector('.item-header');
                 const content = clone.querySelector('.details-content');
                 const arrow = clone.querySelector('.arrow-icon');
 
